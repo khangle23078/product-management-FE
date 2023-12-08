@@ -3,17 +3,20 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useLoginMutation } from '../../services/auth'
 import { User } from '../../interfaces/user'
+import { setCredentials } from '../../features/authSlice'
+import { useAppDispatch } from '../../hooks'
 
 const { Title } = Typography
 
 const Login: React.FC = () => {
   const navigate = useNavigate()
   const [login, { isLoading }] = useLoginMutation()
-
+  const dispatch = useAppDispatch()
   const handleRegister = async (data: Partial<User>) => {
     try {
       const response = await login(data).unwrap()
       message.success(response.message)
+      dispatch(setCredentials(response.data))
       navigate('/')
     } catch (error) {
       message.error('Có lỗi xảy ra khi đăng ký')
@@ -42,7 +45,7 @@ const Login: React.FC = () => {
           htmlType='submit'
           loading={isLoading}
         >
-          Đăng ký
+          Đăng nhập
         </Button>
       </Form>
       <div className='text-center'>

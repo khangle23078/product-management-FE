@@ -9,8 +9,13 @@ const Register = lazy(() => import('./../pages/auth/Register'))
 const ProductList = lazy(() => import('./../pages/admin/product/ProductList'))
 const ProductAdd = lazy(() => import('./../pages/admin/product/ProductAdd'))
 const ProductEdit = lazy(() => import('./../pages/admin/product/ProductEdit'))
+const HomePage = lazy(() => import('./../pages/client/HomePage'))
 
 export const routes = createBrowserRouter([
+  {
+    path: '',
+    element: <HomePage />
+  },
   {
     path: '/auth',
     element: <AuthLayout />,
