@@ -2,6 +2,7 @@ import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 
 import AdminLayout from "../layouts/AdminLayout";
+import AuthLayout from "../layouts/AuthLayout";
 
 const Login = lazy(() => import('./../pages/auth/Login'))
 const Register = lazy(() => import('./../pages/auth/Register'))
@@ -11,12 +12,18 @@ const ProductEdit = lazy(() => import('./../pages/admin/product/ProductEdit'))
 
 export const routes = createBrowserRouter([
   {
-    path: '/',
-    element: <Login />
-  },
-  {
-    path: '/register',
-    element: <Register />
+    path: '/auth',
+    element: <AuthLayout />,
+    children: [
+      {
+        path: 'register',
+        element: <Register />
+      },
+      {
+        path: 'login',
+        element: <Login />
+      }
+    ]
   },
   {
     path: '/admin',
