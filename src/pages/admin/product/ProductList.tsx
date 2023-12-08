@@ -69,7 +69,7 @@ const ProductList: React.FC = () => {
   })
 
   return (
-    <Card className='my-2'>
+    <Card className='my-4'>
       <Title level={4}>Danh sách sản phẩm</Title>
       <Table columns={columns} dataSource={dataSource} rowKey={'_id'} loading={isLoading} />
     </Card>

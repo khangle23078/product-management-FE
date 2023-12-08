@@ -8,7 +8,14 @@ const productApi = api.injectEndpoints({
       query: () => '/product/list',
       providesTags: ['Product']
     }),
+    createProduct: build.mutation<Response<void>, Omit<Product, 'id'>>({
+      query: (product) => ({
+        url: '/product/create',
+        method: 'POST',
+        body: product
+      })
+    })
   })
 })
 
-export const { useGetProductsQuery } = productApi
+export const { useGetProductsQuery, useCreateProductMutation } = productApi
