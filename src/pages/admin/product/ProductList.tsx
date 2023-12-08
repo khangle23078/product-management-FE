@@ -1,6 +1,6 @@
-import { Button, Card, Image, Popconfirm, Space, Table, Typography } from 'antd'
+import { Button, Card, Image, Popconfirm, Space, Table, Typography, message } from 'antd'
 import React from 'react'
-import { useGetProductsQuery } from '../../../services/product'
+import { useDeleteProductMutation, useGetProductsQuery } from '../../../services/product'
 import { Product } from '../../../interfaces/product'
 import { Link } from 'react-router-dom'
 
@@ -8,6 +8,16 @@ const { Title } = Typography
 
 const ProductList: React.FC = () => {
   const { data: products, isLoading } = useGetProductsQuery()
+  const [deleteProduct] = useDeleteProductMutation()
+
+  const handleDeleteProduct = async (_id: string | undefined) => {
+    try {
+      const response = await deleteProduct(_id).unwrap()
+      message.success(response.message)
+    } catch (error: unknown) {
+      message.error(error as string)
+    }
+  }
 
   const columns = [
     {
@@ -48,7 +58,13 @@ const ProductList: React.FC = () => {
             <Link to={`/admin/product/edit/${_id}`}>
               <Button type='dashed'>Sửa</Button>
             </Link>
-            <Popconfirm title='Xóa sản phẩm'>
+            <Popconfirm
+              title='Xóa sản phẩm'
+              description="Bạn có chắc muốn xóa không?"
+              okText="Xóa"
+              cancelText="Không"
+              onConfirm={() => handleDeleteProduct(_id)}
+            >
               <Button type='primary' danger>Xóa</Button>
             </Popconfirm>
           </Space>
