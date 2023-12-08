@@ -26,7 +26,7 @@ export const routes = createBrowserRouter([
         path: 'product',
         children: [
           {
-            path: '',
+            path: 'list',
             element: <ProductList />
           },
           {
